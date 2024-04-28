@@ -33,8 +33,17 @@ async function doSubmit() {
     //         lyrics_el.innerHTML = `Oops! ${err}`;
     //     })
     // async await
-    const lyricsResponse = await findLyrics(artist, song);
-    const data = await lyricsResponse.json();
-    lyrics_el.innerHTML = data.lyrics;
+    try {
+        const lyricsResponse = await findLyrics(artist, song);
+        const data = await lyricsResponse.json();
+        if(data.lyrics) {
+            lyrics_el.innerHTML = data.lyrics;
+        } else {
+            lyrics_el.innerHTML = data.error;
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
